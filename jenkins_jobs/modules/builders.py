@@ -684,6 +684,8 @@ def gradle(parser, xml_parent, data):
         root directory, specify the path (relative to the module
         root) here, such as ${workspace}/parent/ instead of just
         ${workspace}.
+    :arg str build-file: If your gradle build script is not named 
+        build.gradle, specify the gradle build name script. (optional)
 
     Example:
 
@@ -693,7 +695,8 @@ def gradle(parser, xml_parent, data):
     gradle = XML.SubElement(xml_parent, 'hudson.plugins.gradle.Gradle')
     XML.SubElement(gradle, 'description').text = ''
     XML.SubElement(gradle, 'tasks').text = data['tasks']
-    XML.SubElement(gradle, 'buildFile').text = ''
+    XML.SubElement(gradle, 'buildFile').text = data.get(
+        'build-file', '')
     XML.SubElement(gradle, 'rootBuildScriptDir').text = data.get(
         'root-build-script-dir', '')
     XML.SubElement(gradle, 'gradleName').text = data.get(
